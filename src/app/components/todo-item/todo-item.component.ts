@@ -16,13 +16,13 @@ export class TodoItemComponent implements OnInit {
   }
 
   // Set Dynamic Classes
-  setClasses(){
+  /*setClasses(){
     let classes = {
       todo:true,
       'is-complete':this.todo.completed
     }
     return classes;
-  }
+  }*/
 
   onToggle(todo:Todo){
     //Toggle In UI

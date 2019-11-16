@@ -1,4 +1,6 @@
-<form class="form" (ngSubmit)="onSubmit()">
-    <input type="text" name="title"  [(ngModel)]="title" placeholder="Add Todo...">
-    <input type="submit" value="Submit" class="btn">
-</form>
+<div class="input-group mb-3">
+    <input type="text" name="title" [(ngModel)]="title" class="form-control" placeholder="Add New Task" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+        <button (click)="onSubmit()" class="btn btn-outline-secondary" type="button">Button</button>
+    </div>
+</div>
