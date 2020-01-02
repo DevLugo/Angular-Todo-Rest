@@ -1,0 +1,13 @@
+<section class="jumbotron text-center">
+    <div class="container">
+        <app-add-todo (addTodo)="addTodo($event)"></app-add-todo>
+        <h2>Task List</h2>
+        <ul class="list-group">
+                <app-todo-item 
+                    *ngFor="let todo of todos" 
+                    [todo]="todo"
+                    (deleteTodo)= "deleteTodo($event)">
+                </app-todo-item>
+        </ul>
+    </div>
+</section>
