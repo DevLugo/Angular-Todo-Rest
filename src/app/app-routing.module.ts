@@ -7,7 +7,8 @@ import { TodoComponent } from "./components/todo/todo.component";
 const routes: Routes = [
   { path: "signin", component: LoginComponent },
   { path: "signup", component: SignupComponent },
-  { path: "", component: TodoComponent }
+  { path: "todo", component: TodoComponent }
+  /*{ path: "**", component: PageNotFoundComponent }*/
 ];
 
 @NgModule({
