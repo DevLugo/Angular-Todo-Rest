@@ -16,7 +16,7 @@ export class ErrorInterceptorService {
       catchError(err => {
         if (err.status == 401) {
           // auto logout if 401 response returned from api
-          console.log("WWWWWWWWWWWWWWWWWWWWW");
+          console.log("ErrorInterceptorService");
           this.authService.logout();
           location.reload(true);
         }

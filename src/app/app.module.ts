@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { AppRoutingModule, routinngComponents } from "./app-routing.module";
+import { appRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { TodoComponent } from "./components/todo/todo.component";
 import { TodoItemComponent } from "./components/todo-item/todo-item.component";
@@ -13,6 +13,8 @@ import { from } from "rxjs";
 import { FooterComponent } from "./components/layout/footer/footer.component";
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { ErrorInterceptorService } from "./_helpers/error.interceptor.service";
+import { LoginComponent } from "./components/login/login.component";
+import { SignupComponent } from "./components/signup/signup.component";
 
 @NgModule({
   declarations: [
@@ -22,11 +24,12 @@ import { ErrorInterceptorService } from "./_helpers/error.interceptor.service";
     HeaderComponent,
     AddTodoComponent,
     FooterComponent,
-    routinngComponents
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    appRoutingModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
