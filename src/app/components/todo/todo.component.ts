@@ -13,7 +13,7 @@ export class TodoComponent implements OnInit {
   constructor(private todoService: TodoService) {}
 
   ngOnInit() {
-    console.log("ssss");
+    console.log("ngOnInit");
     this.todoService.getAll().subscribe(todos => {
       console.log("inside");
       this.todos = todos;
