@@ -14,12 +14,13 @@ const httpOptions = {
   providedIn: "root"
 })
 export class TodoService {
-  todosUrl: string = environment.apiUrl;
+  todosUrl: string = `${environment.apiUrl}todo`;
   todosLimit: string = "?_limit=6";
   constructor(private http: HttpClient) {}
 
   // Get Todos
   getAll(): Observable<Todo[]> {
+    console.log("..o");
     return this.http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`);
   }
 
@@ -37,6 +38,7 @@ export class TodoService {
 
   // Add Todo
   addTodo(todo: Todo): Observable<Todo> {
+    console.log("..addTodo");
     return this.http.post<Todo>(this.todosUrl, todo, httpOptions);
   }
 }

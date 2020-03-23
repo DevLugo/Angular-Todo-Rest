@@ -15,17 +15,14 @@ export class SignupComponent implements OnInit {
   submitted: boolean = false;
   returnUrl: string;
   error: string = "";
+  success: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-  ) {
-    if (this.authService.currentUserValue) {
-      this.router.navigate(["/"]);
-    }
-  }
+  ) {}
 
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
@@ -55,11 +52,16 @@ export class SignupComponent implements OnInit {
       .register(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
-        data => {
+        () => {
+          this.success = true;
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error;
+          if (error.status == 404) {
+            this.error = "Internal Error";
+          } else {
+            this.error = error.error.message;
+          }
           this.loading = false;
         }
       );
