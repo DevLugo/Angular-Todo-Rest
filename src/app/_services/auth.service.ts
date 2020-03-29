@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpResponse
+  HttpResponse,
+  HttpHeaders
 } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { BehaviorSubject, Observable } from "rxjs";
@@ -27,30 +28,26 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  register(username: string, password: string) {
-    return this.http
-      .post<any>(
-        `${this.uri}/signup`,
-        { username, password, email: username },
-        { observe: "response" }
-      )
-      .pipe(
-        map(res => {
-          return res;
-        })
-      );
+  register(username: string, password: string): Observable<any> {
+    const httpOptions: { headers; observe } = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      }),
+      observe: "response"
+    };
+    return this.http.post(
+      `${this.uri}/signup`,
+      {
+        username,
+        password,
+        email: username
+      },
+      httpOptions
+    );
   }
 
   login(username: string, password: string) {
-    return this.http
-      .post<any>(`${this.uri}/signin`, { username, password })
-      .pipe(
-        map(user => {
-          localStorage.setItem("currentUser", JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return user;
-        })
-      );
+    return this.http.post<any>(`${this.uri}/signin`, { username, password });
   }
 
   logout() {
