@@ -50,18 +50,14 @@ export class SignupComponent implements OnInit {
 
     this.authService
       .register(this.f.username.value, this.f.password.value)
-      .pipe(first())
       .subscribe(
-        () => {
+        data => {
+          console.log(data);
           this.success = true;
           this.router.navigate([this.returnUrl]);
         },
-        error => {
-          if (error.status == 404) {
-            this.error = "Internal Error";
-          } else {
-            this.error = error.error.message;
-          }
+        err => {
+          this.error = err;
           this.loading = false;
         }
       );
