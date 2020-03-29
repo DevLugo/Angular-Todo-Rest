@@ -52,7 +52,6 @@ export class SignupComponent implements OnInit {
       .register(this.f.username.value, this.f.password.value)
       .subscribe(
         data => {
-          console.log(data);
           this.success = true;
           this.router.navigate([this.returnUrl]);
         },

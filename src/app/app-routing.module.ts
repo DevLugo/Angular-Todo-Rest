@@ -8,8 +8,8 @@ import { AuthGuard } from "./_helpers/auth.guard";
 const routes: Routes = [
   { path: "signin", component: LoginComponent },
   { path: "signup", component: SignupComponent },
-  { path: "", component: TodoComponent, canActivate: [AuthGuard] },
-  { path: "**", redirectTo: "" }
+  { path: "todo", component: TodoComponent, canActivate: [AuthGuard] },
+  { path: "**", redirectTo: "signin" }
 ];
 
 export const appRoutingModule = RouterModule.forRoot(routes);

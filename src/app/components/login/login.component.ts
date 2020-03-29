@@ -3,6 +3,7 @@ import { AuthService } from "src/app/_services/auth.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs/operators";
+import { TokenStorageService } from "src/app/_services/token-storage.service";
 
 @Component({
   templateUrl: "./login.component.html",
@@ -14,14 +15,19 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   returnUrl: string;
   error: string = "";
+  isLoggedIn = false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private tokenStorage: TokenStorageService
   ) {}
 
   ngOnInit() {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+    }
     this.loginForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required]
@@ -45,15 +51,17 @@ export class LoginComponent implements OnInit {
 
     this.authService
       .login(this.f.username.value, this.f.password.value)
-      .pipe(first())
       .subscribe(
         data => {
-          console.log(data);
-          //this.router.navigate([this.returnUrl]);
+          if (data.token) {
+            this.tokenStorage.saveToken(data.token);
+            this.router.navigate([this.returnUrl]);
+          }
+          this.loading = false;
         },
-        error => {
-          console.log(error);
-          this.error = error;
+        err => {
+          console.log(err);
+          this.error = err;
           this.loading = false;
         }
       );
