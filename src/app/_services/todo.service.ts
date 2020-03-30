@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Todo } from "../models/Todo";
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { environment } from "../../environments/environment";
 
 const httpOptions = {
@@ -16,12 +16,19 @@ const httpOptions = {
 export class TodoService {
   todosUrl: string = `${environment.apiUrl}todo`;
   todosLimit: string = "?_limit=6";
+
+  todos$ = new EventEmitter<any[]>();
+  //private readonly todos: Observable<Todo[]>;
+
   constructor(private http: HttpClient) {}
 
   // Get Todos
-  getAll(): Observable<Todo[]> {
-    console.log("..o");
-    return this.http.get<Todo[]>(`${this.todosUrl}${this.todosLimit}`);
+  getAll() {
+    this.http
+      .get<Todo[]>(`${this.todosUrl}${this.todosLimit}`)
+      .subscribe(res => {
+        this.todos$.emit(res);
+      });
   }
 
   // Toggle Completed
@@ -38,7 +45,8 @@ export class TodoService {
 
   // Add Todo
   addTodo(todo: Todo): Observable<Todo> {
-    console.log("..addTodo");
+    console.log(todo);
+    console.log("E");
     return this.http.post<Todo>(this.todosUrl, todo, httpOptions);
   }
 }
