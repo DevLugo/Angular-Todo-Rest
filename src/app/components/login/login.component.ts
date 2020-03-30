@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       password: ["", Validators.required]
     });
 
-    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+    this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/todo";
   }
 
   get f() {
@@ -53,6 +53,10 @@ export class LoginComponent implements OnInit {
       .login(this.f.username.value, this.f.password.value)
       .subscribe(
         data => {
+          console.log("sss");
+          console.log(data);
+          console.log(this.returnUrl);
+
           if (data.token) {
             this.tokenStorage.saveToken(data.token);
             this.router.navigate([this.returnUrl]);

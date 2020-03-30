@@ -18,6 +18,10 @@ export class TokenStorageService {
     localStorage.setItem(TOKEN_KEY, token);
   }
 
+  public removeToken() {
+    localStorage.removeItem(TOKEN_KEY);
+  }
+
   public getToken(): string {
     return localStorage.getItem(TOKEN_KEY);
   }
