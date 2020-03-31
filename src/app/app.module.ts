@@ -11,7 +11,7 @@ import { HeaderComponent } from "./components/layout/header/header.component";
 import { AddTodoComponent } from "./components/add-todo/add-todo.component";
 import { from } from "rxjs";
 import { FooterComponent } from "./components/layout/footer/footer.component";
-import { JwtInterceptor } from "./_helpers/jwt.interceptor";
+import { AuthInterceptor } from "./_helpers/auth.interceptor";
 import { ErrorInterceptorService } from "./_helpers/error.interceptor.service";
 import { LoginComponent } from "./components/login/login.component";
 import { SignupComponent } from "./components/signup/signup.component";
@@ -35,7 +35,7 @@ import { SignupComponent } from "./components/signup/signup.component";
     ReactiveFormsModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptorService,

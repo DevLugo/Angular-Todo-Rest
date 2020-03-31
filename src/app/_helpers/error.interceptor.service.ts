@@ -3,10 +3,11 @@ import { AuthService } from "../_services/auth.service";
 import { HttpRequest, HttpHandler, HttpEvent } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { TokenStorageService } from "../_services/token-storage.service";
 
 @Injectable()
 export class ErrorInterceptorService {
-  constructor(private authService: AuthService) {}
+  constructor(private tokenService: TokenStorageService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -17,7 +18,7 @@ export class ErrorInterceptorService {
         if (err.status == 401) {
           // auto logout if 401 response returned from api
           console.log("ErrorInterceptorService");
-          this.authService.logout();
+          this.tokenService.removeToken();
           location.reload(true);
         }
 

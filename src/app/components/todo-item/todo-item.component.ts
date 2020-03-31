@@ -25,7 +25,7 @@ export class TodoItemComponent implements OnInit {
 
   onToggle(todo: Todo) {
     //Toggle In UI
-    todo.completed = !todo.completed;
+    todo.done = !todo.done;
     //Toggle on server
     this.todoService
       .toggleComplelted(todo)
