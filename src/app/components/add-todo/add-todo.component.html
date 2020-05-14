@@ -1,0 +1,20 @@
+<div class="input-group mb-3">
+  <input
+    type="text"
+    name="description"
+    [(ngModel)]="description"
+    class="form-control"
+    placeholder="Add New Task"
+    aria-label="Recipient's username"
+    aria-describedby="basic-addon2"
+  />
+  <div class="input-group-append">
+    <button
+      (click)="onSubmit()"
+      class="btn btn-outline-secondary"
+      type="button"
+    >
+      Button
+    </button>
+  </div>
+</div>
